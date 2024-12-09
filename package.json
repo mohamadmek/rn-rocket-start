@@ -3,18 +3,21 @@
   "bin": {
     "rn-rocket-start": "./dist/index.js"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc -w",
-    "link-cli": "tsc && (yarn --global unlink rn-rocket-start || true) && chmod +x ./dist/index.js && yarn --global link rn-rocket-start"
+    "link-cli": "tsc && (yarn --global unlink rn-rocket-start || true) && chmod +x ./dist/index.js && yarn --global link rn-rocket-start",
+    "check-format": "prettier --write .",
+    "local-release": "changeset version && changeset publish"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@changesets/cli": "^2.27.10",
     "@types/node": "^22.10.1",
     "typescript": "^5.7.2"
   },
