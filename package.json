@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc -w",
-    "link-cli": "(yarn --global unlink rn-rocket-start || true) && chmod +x ./dist/index.js && yarn --global link rn-rocket-start"
+    "link-cli": "tsc && (yarn --global unlink rn-rocket-start || true) && chmod +x ./dist/index.js && yarn --global link rn-rocket-start"
   },
   "keywords": [],
   "author": "",
