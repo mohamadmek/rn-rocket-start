@@ -17,28 +17,6 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Fetch Current Version from NPM
-        id: npm-version
-        run: echo "current=$(npm view <package-name> version || echo 'none')" >> $GITHUB_ENV
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Read Local Version
-        id: local-version
-        run: echo "local=$(node -p 'require(\"./package.json\").version')" >> $GITHUB_ENV
-
-      - name: Check Version
-        id: version-check
-        run: |
-          echo "Current NPM Version: ${{ env.current }}"
-          echo "Local Package Version: ${{ env.local }}"
-          if [[ "${{ env.current }}" == "${{ env.local }}" ]]; then
-            echo "Version matches. Skipping publish."
-            exit 0
-          else
-            echo "Version mismatch. Proceeding with publish."
-          fi
-
       - name: Authenticate with NPM
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
 
