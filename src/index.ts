@@ -7,7 +7,7 @@ const program = new Command();
 
 console.log(figlet.textSync('Rocket Start'));
 
-program.name('mycli').description('My CLI').version('0.0.1');
+program.name('mycli').description('My CLI').version('0.0.5');
 
 program.argument('<string>', 'Name of the user').action((message: string) => {
   console.log(`Hello, ${message}!`);
