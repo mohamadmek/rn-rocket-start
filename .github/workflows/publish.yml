@@ -27,7 +27,7 @@ jobs:
         run: yarn link-cli
 
       - name: Run Prettier
-        run: yarn check-format
+        run: yarn format:check
 
       # Publish step only on master branch
       - name: Publish to NPM

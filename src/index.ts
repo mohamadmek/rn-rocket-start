@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
+import { copyDirectoryToMohamad } from './helpers/boilerplateHelpers';
 const figlet = require('figlet');
+import path from 'path';
 
+const boilerplatePath = path.resolve(__dirname, '../boilerplate');
 const program = new Command();
 
 console.log(figlet.textSync('Rocket Start'));
@@ -12,5 +15,9 @@ program.name('mycli').description('My CLI').version('0.0.5');
 program.argument('<string>', 'Name of the user').action((message: string) => {
   console.log(`Hello, ${message}!`);
 });
+
+(async () => {
+  await copyDirectoryToMohamad(boilerplatePath);
+})();
 
 program.parse(process.argv);
