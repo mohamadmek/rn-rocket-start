@@ -3,15 +3,22 @@
   "bin": {
     "rn-rocket-start": "./dist/index.js"
   },
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc -w",
     "link-cli": "tsc && (yarn --global unlink rn-rocket-start || true) && chmod +x ./dist/index.js && yarn --global link rn-rocket-start",
-    "check-format": "prettier --write .",
-    "local-release": "changeset version && changeset publish"
+    "local-release": "changeset version && changeset publish",
+    "compile": "tsc -p .",
+    "typecheck": "tsc -p . --noEmit",
+    "clean": "rm -drf ./build ./boilerplate/.gitignore.template ./boilerplate/node_modules ./boilerplate/ios/build/ ./boilerplate/ios/Pods/ ./boilerplate/android/app/build ./boilerplate/ios/.xcode.env.local",
+    "build": "yarn clean && yarn compile",
+    "build:watch": "yarn build && yarn compile --watch",
+    "format": "prettier '**/*{.js,.ts,.tsx,.json,.md}'",
+    "format:write": "yarn format --write",
+    "format:check": "yarn format --check",
+    "lint": "eslint 'src/**' 'test/**'"
   },
   "keywords": [],
   "author": "",
