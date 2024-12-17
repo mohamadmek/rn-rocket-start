@@ -130,6 +130,7 @@ export async function copyDirectoryAndChangeName(
     });
 
     console.log('');
+    console.log('Your rocket is ready to launch 🚀');
     console.log(`cd ${targetDir}`);
     console.log('');
     console.log('yarn start');
