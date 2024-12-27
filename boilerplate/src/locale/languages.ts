@@ -5,8 +5,8 @@ interface Language {
 }
 
 export enum AppLanguage {
-  en = "en",
-  de = "de",
+  en = 'en',
+  de = 'de',
 }
 
 interface AppLanguageConfig {
@@ -15,18 +15,18 @@ interface AppLanguageConfig {
 }
 
 export const APP_LANGUAGES: AppLanguageConfig[] = [
-  { code2: AppLanguage.en, name: "English" },
+  { code2: AppLanguage.en, name: 'English' },
 ];
 
 export const LANGUAGES: Language[] = [
-  { code3: "eng", code2: "en", name: "English" },
-  { code3: "ger", code2: "de", name: "German" },
+  { code3: 'eng', code2: 'en', name: 'English' },
+  { code3: 'ger', code2: 'de', name: 'German' },
 ];
 
 export const LANGUAGES_MAP_CODE2 = Object.fromEntries(
-  LANGUAGES.map((lang) => [lang.code2, lang])
+  LANGUAGES.map((lang) => [lang.code2, lang]),
 );
 
 export const LANGUAGES_MAP_CODE3 = Object.fromEntries(
-  LANGUAGES.map((lang) => [lang.code3, lang])
+  LANGUAGES.map((lang) => [lang.code3, lang]),
 );

@@ -2,7 +2,7 @@ import {
   AppLanguage,
   LANGUAGES_MAP_CODE2,
   LANGUAGES_MAP_CODE3,
-} from "./languages";
+} from './languages';
 
 export function code2ToCode3(lang: string): string {
   if (lang.length === 2) {
@@ -32,13 +32,13 @@ export function codeToLanguageName(lang: string): string {
 }
 
 export function sanitizeAppLanguageSetting(appLanguage: string): AppLanguage {
-  const langs = appLanguage.split(",").filter(Boolean);
+  const langs = appLanguage.split(',').filter(Boolean);
 
   for (const lang of langs) {
     switch (lang) {
-      case "en":
+      case 'en':
         return AppLanguage.en;
-      case "de":
+      case 'de':
         return AppLanguage.de;
       default:
         continue;

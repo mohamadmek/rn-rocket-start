@@ -1,10 +1,10 @@
-import React from "react";
-import { useLocaleLanguage } from "./i18n";
-import { i18n } from "@lingui/core";
-import { I18nProvider as DefaultI18nProvider } from "@lingui/react";
-import { messages as messagesEn } from "./locales/en/messages";
+import React from 'react';
+import { useLocaleLanguage } from './i18n';
+import { i18n } from '@lingui/core';
+import { I18nProvider as DefaultI18nProvider } from '@lingui/react';
+import { messages as messagesEn } from './locales/en/messages';
 
-i18n.loadAndActivate({ locale: "en", messages: messagesEn });
+i18n.loadAndActivate({ locale: 'en', messages: messagesEn });
 
 export default function I18nProvider({
   children,

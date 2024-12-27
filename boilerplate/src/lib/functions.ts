@@ -1,6 +1,6 @@
 export function choose<U, T extends Record<string, U>>(
   value: keyof T,
-  choices: T
+  choices: T,
 ): U {
   return choices[value];
 }
@@ -85,7 +85,7 @@ export function isPlainObject(o: any): o is Object {
   }
 
   // If constructor does not have an Object-specific method
-  if (!prot.hasOwnProperty("isPrototypeOf")) {
+  if (!prot.hasOwnProperty('isPrototypeOf')) {
     return false;
   }
 
@@ -94,5 +94,5 @@ export function isPlainObject(o: any): o is Object {
 }
 
 function hasObjectPrototype(o: any): boolean {
-  return Object.prototype.toString.call(o) === "[object Object]";
+  return Object.prototype.toString.call(o) === '[object Object]';
 }
