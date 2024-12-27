@@ -13,19 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#. js-lingui-explicit-id
-#: app/(tabs)/index.tsx:23
-#~ msgid "naming"
-#~ msgstr ""
-
-#: src/app/(tabs)/index.tsx:22
+#: src/app/(tabs)/index.tsx:36
 msgid "HELLO EVERYONE"
-msgstr "ENSCHULDIGUNG"
-
-#: app/(tabs)/index.tsx:23
-#~ msgid "mohamad"
-#~ msgstr ""
-
-#: app/(tabs)/index.tsx:22
-#~ msgid "this will be translated and rerendered with locale changes"
-#~ msgstr ""
+msgstr "HALLO ZUSAMMEN"

@@ -4,7 +4,7 @@ import { findSupportedAppLanguage } from '@/src/locale/helpers';
 import { deviceLanguageCodes, deviceLocales } from '@/src/locale/deviceLocales';
 import { deviceStorage } from '@/src/lib/storage';
 
-const schema = z.object({
+export const schema = z.object({
   languagePrefs: z.object({
     appLanguage: z.string(),
   }),

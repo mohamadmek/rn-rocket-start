@@ -70,7 +70,7 @@ export class Storage<Scopes extends unknown[], Schema> {
  *   `device.set([key], true)`
  */
 export const deviceStorage = new Storage<[], TLocalStorageSchema>({
-  id: 'app_device',
+  id: 'rn_rocket_start',
 });
 
 if (IS_DEV && typeof window !== 'undefined') {

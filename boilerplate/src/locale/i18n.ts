@@ -14,7 +14,6 @@ import { messages as messagesDe } from './locales/de/messages';
 import { messages as messagesEn } from './locales/en/messages';
 import { sanitizeAppLanguageSetting } from './helpers';
 import { useLanguageStore } from './state';
-// import { useLanguageStore } from "../state/persisted/preferences/languages";
 
 /**
  * We do a dynamic import of just the catalog that we need
