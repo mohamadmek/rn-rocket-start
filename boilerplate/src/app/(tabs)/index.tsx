@@ -24,7 +24,7 @@ export default function HomeScreen() {
     >
       <Button
         title="press me"
-        onPress={() => {
+        onPress={async () => {
           setAppLanguage(appLanguage === 'en' ? 'de' : 'en');
           deviceStorage.set(
             ['appLanguage'],
