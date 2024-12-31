@@ -1,14 +1,15 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { PreferenceDefaults, TPreferenceSchema } from './schema';
 import { deviceStorage } from '@/src/lib/storage';
 import { Platform } from 'react-native';
+import {
+  localStorageDefaults,
+  TLocalStorageSchema,
+} from '@/src/lib/storage/schema';
 
 interface ILanguageStore {
-  appLanguage: TPreferenceSchema['languagePrefs']['appLanguage'];
-  setAppLanguage: (
-    lang: TPreferenceSchema['languagePrefs']['appLanguage'],
-  ) => void;
+  appLanguage: TLocalStorageSchema['appLanguage'];
+  setAppLanguage: (lang: TLocalStorageSchema['appLanguage']) => void;
 }
 
 export const useLanguageStore = create<ILanguageStore>()(
@@ -16,9 +17,9 @@ export const useLanguageStore = create<ILanguageStore>()(
     (set) => ({
       appLanguage:
         Platform.OS === 'web'
-          ? PreferenceDefaults['languagePrefs']['appLanguage']
+          ? localStorageDefaults['appLanguage']
           : deviceStorage.get(['appLanguage']) ||
-            PreferenceDefaults['languagePrefs']['appLanguage'],
+            localStorageDefaults['appLanguage'],
 
       setAppLanguage: (by) => set(() => ({ appLanguage: by })),
     }),

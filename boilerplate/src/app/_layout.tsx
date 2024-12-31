@@ -1,9 +1,4 @@
 import 'react-native-url-polyfill/auto';
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -11,16 +6,18 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
 import I18nProvider from '../locale/i18nProvider';
 import { deviceStorage } from '../lib/storage';
 import { useLanguageStore } from '../locale/state';
+import { ThemeProvider as Alf } from '../theme';
+import { useColorModeTheme } from '../theme/useColorModeTheme';
+import { ThemeProvider } from '../lib/ThemeContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const theme = useColorModeTheme();
   const { setAppLanguage } = useLanguageStore();
   const [isReady, setReady] = useState(false);
   const [loaded] = useFonts({
@@ -54,13 +51,15 @@ export default function RootLayout() {
 
   return (
     <I18nProvider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style="auto" />
-      </ThemeProvider>
+      <Alf theme={theme}>
+        <ThemeProvider theme={theme}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </Alf>
     </I18nProvider>
   );
 }
