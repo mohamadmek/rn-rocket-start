@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { i18n } from '@lingui/core';
 import { AppLanguage } from './languages';
-import { useLanguageStore } from './state';
+import { useAppLanguageStore } from './state';
 import { sanitizeAppLanguageSetting } from './helpers';
 
 /**
@@ -26,7 +26,7 @@ export async function dynamicActivate(locale: AppLanguage) {
 }
 
 export async function useLocaleLanguage() {
-  const { appLanguage } = useLanguageStore();
+  const { appLanguage } = useAppLanguageStore();
   useEffect(() => {
     const sanitizedLanguage = sanitizeAppLanguageSetting(appLanguage);
 

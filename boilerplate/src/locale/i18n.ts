@@ -13,7 +13,7 @@ import { AppLanguage } from '@/src/locale/languages';
 import { messages as messagesDe } from './locales/de/messages';
 import { messages as messagesEn } from './locales/en/messages';
 import { sanitizeAppLanguageSetting } from './helpers';
-import { useLanguageStore } from './state';
+import { useAppLanguageStore } from './state';
 
 /**
  * We do a dynamic import of just the catalog that we need
@@ -36,7 +36,7 @@ export async function dynamicActivate(locale: AppLanguage) {
 }
 
 export function useLocaleLanguage() {
-  const { appLanguage } = useLanguageStore();
+  const { appLanguage } = useAppLanguageStore();
   useEffect(() => {
     dynamicActivate(sanitizeAppLanguageSetting(appLanguage));
   }, [appLanguage]);

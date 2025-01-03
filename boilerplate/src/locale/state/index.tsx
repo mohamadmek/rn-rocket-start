@@ -1,29 +1,70 @@
-import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
-import { PreferenceDefaults, TPreferenceSchema } from './schema';
 import { deviceStorage } from '@/src/lib/storage';
 import { Platform } from 'react-native';
+import {
+  localStorageDefaults,
+  TLocalStorageSchema,
+} from '@/src/lib/storage/schema';
+import React from 'react';
+import { AppLanguage } from '../languages';
 
-interface ILanguageStore {
-  appLanguage: TPreferenceSchema['languagePrefs']['appLanguage'];
-  setAppLanguage: (
-    lang: TPreferenceSchema['languagePrefs']['appLanguage'],
-  ) => void;
+type TStateContext = {
+  appLanguage: TLocalStorageSchema['appLanguage'];
+};
+type TSetContext = {
+  setAppLanguage: (lang: TLocalStorageSchema['appLanguage']) => void;
+};
+
+const stateContext = React.createContext<TStateContext>({
+  appLanguage: AppLanguage.en,
+});
+const setContext = React.createContext<TSetContext>({
+  setAppLanguage: () => {
+    throw new Error(
+      'setAppLanguage must be used within a <AppLanguageProvider>',
+    );
+  },
+} as TSetContext);
+
+export function AppLanguageProvider({
+  children,
+}: React.PropsWithChildren<object>) {
+  const [language, setLanguage] = React.useState<TStateContext['appLanguage']>(
+    Platform.OS === 'web'
+      ? localStorageDefaults['appLanguage']
+      : deviceStorage.get(['appLanguage']) ||
+          localStorageDefaults['appLanguage'],
+  );
+
+  const stateContextValue: TStateContext = React.useMemo(
+    () => ({
+      appLanguage: language,
+    }),
+    [language],
+  );
+
+  const setContextValue: TSetContext = React.useMemo(
+    () => ({
+      setAppLanguage: (appLanguage: TLocalStorageSchema['appLanguage']) => {
+        setLanguage(appLanguage);
+        deviceStorage.set(['appLanguage'], appLanguage);
+      },
+    }),
+    [],
+  );
+
+  return (
+    <stateContext.Provider value={stateContextValue}>
+      <setContext.Provider value={setContextValue}>
+        {children}
+      </setContext.Provider>
+    </stateContext.Provider>
+  );
 }
 
-export const useLanguageStore = create<ILanguageStore>()(
-  devtools(
-    (set) => ({
-      appLanguage:
-        Platform.OS === 'web'
-          ? PreferenceDefaults['languagePrefs']['appLanguage']
-          : deviceStorage.get(['appLanguage']) ||
-            PreferenceDefaults['languagePrefs']['appLanguage'],
+export function useAppLanguageStore() {
+  return React.useContext(stateContext);
+}
 
-      setAppLanguage: (by) => set(() => ({ appLanguage: by })),
-    }),
-    {
-      name: 'language-store',
-    },
-  ),
-);
+export function useSetAppLanguageStore() {
+  return React.useContext(setContext);
+}
