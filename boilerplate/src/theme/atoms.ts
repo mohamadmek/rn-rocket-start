@@ -1,8 +1,8 @@
-import { Platform, StyleProp, StyleSheet, ViewStyle } from 'react-native';
-import { ios, native, web } from './platform';
+import { Platform, StyleSheet, ViewStyle } from 'react-native';
+import { ios, native, web } from './utils/platform';
 import * as tokens from './tokens';
 
-export const atoms = {
+export const atoms = StyleSheet.create({
   debug: {
     borderColor: 'red',
     borderWidth: 1,
@@ -913,10 +913,6 @@ export const atoms = {
   user_select_all: {
     userSelect: 'all',
   },
-  outline_inset_1: {
-    outlineOffset: '-1px',
-  } as StyleProp<ViewStyle>,
-
   /*
    * Text decoration
    */
@@ -961,4 +957,4 @@ export const atoms = {
     transitionTimingFunction: 'cubic-bezier(0.17, 0.73, 0.14, 1)',
     transitionDuration: '100ms',
   }),
-} as const;
+});

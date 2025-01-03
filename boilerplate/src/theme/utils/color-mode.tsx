@@ -1,9 +1,9 @@
 import React from 'react';
-import { deviceStorage } from '../lib/storage';
+import { deviceStorage } from '../../lib/storage';
 import {
   localStorageDefaults,
   TLocalStorageSchema,
-} from '../lib/storage/schema';
+} from '../../lib/storage/schema';
 
 type StateContext = {
   colorMode: TLocalStorageSchema['colorMode'];

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import * as tokens from './tokens';
-import { Breakpoint, useBreakpoints } from './breakpoints';
+import * as tokens from '../tokens';
+import { Breakpoint, useBreakpoints } from '../breakpoints';
 
 type Gutter = 'compact' | 'base' | 'wide' | 0;
 

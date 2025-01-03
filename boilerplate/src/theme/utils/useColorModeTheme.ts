@@ -1,11 +1,12 @@
 import React from 'react';
 import { ColorSchemeName, useColorScheme } from 'react-native';
 
-import { ThemeName } from './types';
-import { createThemes } from './themes';
+import { ThemeName } from '../types';
+import { createThemes } from '../themes';
 import { useThemePrefs } from './color-mode';
-import { isWeb } from '../platform/detection';
-import { TLocalStorageSchema } from '../lib/storage/schema';
+import { isWeb } from '../../platform/detection';
+import { TLocalStorageSchema } from '../../lib/storage/schema';
+import { color } from '../tokens';
 
 export function useColorModeTheme(): ThemeName {
   const theme = useThemeName();
@@ -59,8 +60,8 @@ function updateDocument(theme: ThemeName) {
 export function getBackgroundColor(theme: ThemeName): string {
   const { dark, light, dim } = createThemes({
     mainColors: {
-      primary: 'red',
-      secondary: 'gray',
+      primary: color.temp_purple,
+      secondary: color.temp_purple_dark,
     },
   });
   switch (theme) {

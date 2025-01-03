@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import { isWeb, isIOS, isAndroid, isNative } from '../platform/detection';
+import { isWeb, isIOS, isAndroid, isNative } from '../../platform/detection';
 
 /**
  * Identity function on web. Returns nothing on other platforms.

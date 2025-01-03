@@ -10,16 +10,17 @@ import {
 import { createThemes, defaultTheme } from './themes';
 import { Theme, ThemeName } from './types';
 import { TLocalStorageSchema } from '../lib/storage/schema';
+import { color } from './tokens';
 
 export { atoms } from './atoms';
 export * from './breakpoints';
 export * from './fonts';
 export * as tokens from './tokens';
 export * from './types';
-export * from './flatten';
-export * from './platform';
+export * from './utils/flatten';
+export * from './utils/platform';
 export * from './themeSelector';
-export * from './useGutters';
+export * from './utils/useGutters';
 
 export type Alf = {
   themeName: ThemeName;
@@ -48,8 +49,8 @@ export const Context = React.createContext<Alf>({
   theme: defaultTheme,
   themes: createThemes({
     mainColors: {
-      primary: 'red',
-      secondary: 'gray',
+      primary: color.temp_purple,
+      secondary: color.temp_purple_dark,
     },
   }),
   fonts: {
@@ -97,8 +98,8 @@ export function ThemeProvider({
   const themes = React.useMemo(() => {
     return createThemes({
       mainColors: {
-        primary: 'red',
-        secondary: 'gray',
+        primary: color.temp_purple,
+        secondary: color.temp_purple_dark,
       },
     });
   }, []);
