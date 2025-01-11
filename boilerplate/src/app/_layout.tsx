@@ -8,6 +8,7 @@ import { ThemeProvider as Alf } from '../theme';
 import { useColorModeTheme } from '../theme/utils/useColorModeTheme';
 import { AppLanguageProvider } from '../locale/state';
 import RootApp from './Root';
+import { AccessTokenProvider } from '../lib/api/AccessTokenContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -19,8 +20,10 @@ export default function RootLayout() {
     <AppLanguageProvider>
       <I18nProvider>
         <Alf theme={theme}>
-          <RootApp />
-          <StatusBar style="auto" />
+          <AccessTokenProvider>
+            <RootApp />
+            <StatusBar style="auto" />
+          </AccessTokenProvider>
         </Alf>
       </I18nProvider>
     </AppLanguageProvider>

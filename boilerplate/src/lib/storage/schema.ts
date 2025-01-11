@@ -8,6 +8,7 @@ export const schema = z.object({
   appLanguage: z.string(),
   colorMode: z.enum(['system', 'light', 'dark']),
   darkTheme: z.enum(['dim', 'dark']).optional(),
+  refreshToken: z.string().nullable(),
 });
 export type TLocalStorageSchema = z.infer<typeof schema>;
 
@@ -20,4 +21,5 @@ export const localStorageDefaults: TLocalStorageSchema = {
   ]),
   fontScale: '0',
   fontFamily: 'system',
+  refreshToken: null,
 };
