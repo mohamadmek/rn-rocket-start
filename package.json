@@ -3,7 +3,7 @@
   "bin": {
     "rn-rocket-start": "./dist/index.js"
   },
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -31,6 +31,7 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
+    "axios": "^1.7.9",
     "commander": "^12.1.0",
     "figlet": "^1.8.0",
     "fs-jetpack": "^5.1.0",

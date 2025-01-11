@@ -1,3 +1,4 @@
+import '@expo/match-media';
 import { useMemo } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
@@ -6,9 +7,10 @@ export type Breakpoint = 'gtPhone' | 'gtMobile' | 'gtTablet';
 export function useBreakpoints(): Record<Breakpoint, boolean> & {
   activeBreakpoint: Breakpoint | undefined;
 } {
-  const gtPhone = useMediaQuery({ minWidth: 500 });
-  const gtMobile = useMediaQuery({ minWidth: 800 });
-  const gtTablet = useMediaQuery({ minWidth: 1300 });
+  const gtPhone = useMediaQuery({ query: '(min-device-width: 500px)' }); // render mini ipad UI
+  const gtMobile = useMediaQuery({ query: '(min-device-width: 800px)' }); // render tablet UI
+  const gtTablet = useMediaQuery({ query: '(min-device-width: 1300px)' });
+
   return useMemo(() => {
     let active: Breakpoint | undefined;
     if (gtTablet) {
