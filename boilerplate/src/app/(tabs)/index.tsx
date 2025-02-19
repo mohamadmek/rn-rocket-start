@@ -1,5 +1,4 @@
 import { Button, View } from 'react-native';
-
 import { useTheme } from '@/src/theme';
 import {
   useAppLanguageStore,
@@ -14,13 +13,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProviders, Input } from '@/src/components/form';
 import { object, ObjectSchema, string } from 'yup';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { DateTimeInput } from '@/src/components/form/DateTimeInput';
 
 export type TLoginForm = {
   email: string;
+  date: string;
 };
 
 const schema: ObjectSchema<TLoginForm> = object({
-  email: string().label('HELLOZ').required().email().trim(),
+  email: string().label('Email').required().email().trim(),
+  date: string().required(),
 }).defined();
 
 export default function HomeScreen() {
@@ -33,6 +35,7 @@ export default function HomeScreen() {
     mode: 'onChange',
     defaultValues: {
       email: '',
+      date: '',
     },
   });
 
@@ -58,14 +61,14 @@ export default function HomeScreen() {
       <Text>{t`HELLO EVERYONE`}</Text>
       <H3>hello thessssre</H3>
       <FormProviders<TLoginForm> formMethods={formMethods}>
-        <Input
-          iconLeft={
+        <Input multiline name="email" label="Email or Phone" />
+        <DateTimeInput
+          label="date"
+          iconRight={
             <Ionicons name="checkmark-circle" size={32} color="green" />
           }
-          multiline
-          name="email"
-          label="Email or Phone"
-          required
+          mode="date"
+          name="date"
         />
       </FormProviders>
     </View>

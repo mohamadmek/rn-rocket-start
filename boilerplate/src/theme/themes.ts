@@ -34,6 +34,7 @@ export function createThemes({
     white: '#fff',
     black: '#000',
     like: color.like,
+    error: '#FF3B30',
     ...mainColors,
   } as const;
 
@@ -41,6 +42,7 @@ export function createThemes({
     white: '#fff',
     black: color.trueBlack,
     like: color.like,
+    error: '#FF3B30',
     ...mainColors,
   } as const;
 
