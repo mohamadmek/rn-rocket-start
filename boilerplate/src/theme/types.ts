@@ -16,6 +16,7 @@ export type Palette = {
 
   primary: string;
   secondary: string;
+  error: string;
 };
 export type ThemedAtoms = {
   text: {

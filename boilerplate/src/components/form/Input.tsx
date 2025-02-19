@@ -1,9 +1,10 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import type { TextInputProps, TextStyle, ViewStyle } from 'react-native';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { TextInput, View } from 'react-native';
 import React from 'react';
 import { Text } from '../text/Text';
 import { FlexColumn, FlexStart } from '../layouts';
+import { atoms as a } from '@/src/theme';
 
 interface IErrorResponse {
   message: string;
@@ -50,21 +51,22 @@ export const Input = ({
   } = useFormContext();
 
   const textInputStyle: TextStyle = {
-    paddingLeft: iconLeft ? 0 : 10,
-    paddingRight: iconRight ? 0 : 10,
     textAlignVertical: multiline ? 'center' : 'top',
-    minHeight: 45,
-    width: '100%',
+    flex: 1,
     ...textStyle,
   };
 
-  const inputBoxStyles: ViewStyle = {
-    borderWidth: 1,
-    borderRadius: 5,
-    minHeight: 45,
-    justifyContent: 'space-between',
-    display: hidden ? 'none' : 'flex',
-  };
+  const inputBoxStyles: ViewStyle[] = [
+    {
+      borderWidth: 1,
+      borderColor: 'lightgrey',
+      minHeight: 45,
+      justifyContent: iconLeft ? 'flex-start' : 'space-between',
+      display: hidden ? 'none' : 'flex',
+    },
+    a.rounded_sm,
+    a.px_sm,
+  ];
 
   return (
     <Controller
@@ -73,19 +75,17 @@ export const Input = ({
       render={({ field: { onChange, onBlur, value, ref } }) => (
         <View>
           {label && !hidden && (
-            <Text>
-              {label} {required && <Text>*</Text>}
+            <Text semiBold>
+              {label} {required && <Text semiBold>*</Text>}
             </Text>
           )}
           <FlexColumn gap={3}>
             <FlexStart style={inputBoxStyles}>
-              {iconLeft && (
-                <View style={[styles.iconBox, iconLeftStyle]}>{iconLeft}</View>
-              )}
+              {iconLeft && iconLeft}
               <TextInput
                 ref={ref}
                 onBlur={onBlur}
-                style={[textInputStyle]}
+                style={textInputStyle}
                 onChangeText={(text) => {
                   onChange(text);
                   callBack && callBack(text);
@@ -95,23 +95,12 @@ export const Input = ({
                 placeholderTextColor={'grey'}
                 {...rest}
               />
-              {iconRight && (
-                <View style={[styles.iconBox, iconRightStyle]}>
-                  {iconRight}
-                </View>
-              )}
+              {iconRight && iconRight}
             </FlexStart>
             {!hideError &&
               errors[name] &&
               typeof errors[name].message === 'string' && (
-                <Text
-                  style={{
-                    color: '#FF3B30',
-                    fontSize: 12,
-                  }}
-                >
-                  {errors[name].message}
-                </Text>
+                <Text type="error">{errors[name].message}</Text>
               )}
           </FlexColumn>
         </View>
@@ -119,12 +108,3 @@ export const Input = ({
     />
   );
 };
-
-const styles = StyleSheet.create({
-  iconBox: {
-    width: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 40,
-  },
-});
