@@ -10,7 +10,7 @@ import {
 import { createThemes, defaultTheme } from './themes';
 import { Theme, ThemeName } from './types';
 import { TLocalStorageSchema } from '../lib/storage/schema';
-import { color } from './tokens';
+import { appColors } from './tokens';
 
 export { atoms } from './atoms';
 export * from './breakpoints';
@@ -49,8 +49,8 @@ export const Context = React.createContext<Alf>({
   theme: defaultTheme,
   themes: createThemes({
     mainColors: {
-      primary: color.temp_purple,
-      secondary: color.temp_purple_dark,
+      primary: appColors.primary,
+      secondary: appColors.secondary,
     },
   }),
   fonts: {
@@ -98,8 +98,8 @@ export function ThemeProvider({
   const themes = React.useMemo(() => {
     return createThemes({
       mainColors: {
-        primary: color.temp_purple,
-        secondary: color.temp_purple_dark,
+        primary: appColors.primary,
+        secondary: appColors.secondary,
       },
     });
   }, []);

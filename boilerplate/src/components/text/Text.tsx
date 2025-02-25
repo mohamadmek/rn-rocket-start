@@ -82,7 +82,7 @@ export const Text = ({
     textStyles.push(a.font_bold);
   }
   if (semiBold) {
-    textStyles.push(a.font_normal);
+    textStyles.push(a.font_semiBold);
   }
   if (type === 'error') {
     textStyles.push({ color: t.palette.error });

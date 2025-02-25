@@ -5,9 +5,11 @@ import DateTimePickerModal, {
   DateTimePickerProps,
 } from 'react-native-modal-datetime-picker';
 import { FlexColumn, FlexStart } from '../layouts';
-import { displayDateTime, IDisplateDateTimeOptions } from '@/src/lib/date';
+import { displayDateTime } from '@/src/lib/date';
 import { Text } from '../text/Text';
-import { atoms as a } from '@/src/theme';
+import { atoms as a, useTheme } from '@/src/theme';
+import { useLingui } from '@lingui/react/macro';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 interface IDateTimeInputProps extends Partial<DateTimePickerProps> {
   name: string;
@@ -18,6 +20,7 @@ interface IDateTimeInputProps extends Partial<DateTimePickerProps> {
   iconLeft?: React.ReactNode;
   iconRightStyle?: ViewStyle;
   iconLeftStyle?: ViewStyle;
+  allowClear?: boolean;
 }
 
 export const DateTimeInput = ({
@@ -30,8 +33,11 @@ export const DateTimeInput = ({
   iconRightStyle,
   iconLeft,
   iconLeftStyle,
+  allowClear = true,
   ...rest
 }: IDateTimeInputProps) => {
+  const { atoms, palette } = useTheme();
+  const { t } = useLingui();
   const { control } = useFormContext();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -39,26 +45,32 @@ export const DateTimeInput = ({
     setIsOpen(false);
   };
 
-  const displayType: IDisplateDateTimeOptions['display'] =
-    mode === 'date' ? 'DATE' : mode === 'datetime' ? 'DATE_TIME' : 'TIME';
+  const displayType = useMemo(() => {
+    return mode === 'date'
+      ? 'DATE'
+      : mode === 'datetime'
+        ? 'DATE_TIME'
+        : 'TIME';
+  }, [mode]);
 
-  const placeholderText = useMemo(
-    () =>
-      mode === 'date'
-        ? 'Select Date'
-        : mode === 'datetime'
-          ? 'Select Date Time'
-          : 'Select Time',
-    [mode],
-  );
+  const placeholderText = useMemo(() => {
+    switch (mode) {
+      case 'date':
+        return t`Select Date`;
+      case 'datetime':
+        return t`Select Date Time`;
+      case 'time':
+      default:
+        return t`Select Time`;
+    }
+  }, [mode, t]);
 
   const inputContainerStyles: ViewStyle[] = [
     {
       borderWidth: 1,
       borderColor: 'lightgrey',
-
       minHeight: 45,
-      justifyContent: iconLeft ? 'flex-start' : 'space-between',
+      justifyContent: 'space-between',
     },
     a.rounded_sm,
     a.px_sm,
@@ -78,20 +90,33 @@ export const DateTimeInput = ({
           <FlexColumn>
             <Pressable onPress={() => setIsOpen(true)}>
               <FlexStart style={inputContainerStyles}>
-                {iconLeft && iconLeft}
-                <TextInput
-                  placeholder={placeholder || placeholderText}
-                  pointerEvents="none"
-                  editable={false}
-                  autoCorrect={false}
-                  ref={ref}
-                  onBlur={onBlur}
-                  value={displayDateTime(value, {
-                    display: displayType,
-                  })}
-                  placeholderTextColor={'grey'}
-                />
-                {iconRight && iconRight}
+                <FlexStart>
+                  {iconLeft && iconLeft}
+                  <TextInput
+                    style={{
+                      color: atoms.text.color,
+                    }}
+                    placeholder={placeholder || placeholderText}
+                    pointerEvents="none"
+                    editable={false}
+                    autoCorrect={false}
+                    ref={ref}
+                    onBlur={onBlur}
+                    value={displayDateTime(value, {
+                      display: displayType,
+                    })}
+                    placeholderTextColor={'grey'}
+                  />
+                </FlexStart>
+                {iconRight && !allowClear && iconRight}
+                {allowClear && value && (
+                  <Ionicons
+                    onPress={() => onChange(null)}
+                    name="close"
+                    size={32}
+                    color={palette.primary}
+                  />
+                )}
               </FlexStart>
             </Pressable>
             <DateTimePickerModal

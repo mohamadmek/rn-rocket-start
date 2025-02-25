@@ -1,10 +1,11 @@
 import { atoms } from './atoms';
+import { appColors } from './tokens';
 import { Palette, Theme } from './types';
 
 const themes = createThemes({
   mainColors: {
-    primary: 'red',
-    secondary: 'gray',
+    primary: appColors.primary,
+    secondary: appColors.secondary,
   },
 });
 

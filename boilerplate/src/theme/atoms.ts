@@ -289,6 +289,9 @@ export const atoms = StyleSheet.create({
   font_normal: {
     fontWeight: tokens.fontWeight.normal,
   },
+  font_semiBold: {
+    fontWeight: tokens.fontWeight.semiBold,
+  },
   font_bold: {
     fontWeight: tokens.fontWeight.bold,
   },
