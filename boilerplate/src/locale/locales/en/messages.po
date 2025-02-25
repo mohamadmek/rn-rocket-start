@@ -13,6 +13,18 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/app/(tabs)/index.tsx:36
+#: src/app/(tabs)/index.tsx:67
 msgid "HELLO EVERYONE"
 msgstr "HELLO EVERYONE"
+
+#: src/components/form/DateTimeInput.tsx:51
+msgid "Select Date"
+msgstr "Select Date"
+
+#: src/components/form/DateTimeInput.tsx:53
+msgid "Select Date Time"
+msgstr "Select Date Time"
+
+#: src/components/form/DateTimeInput.tsx:54
+msgid "Select Time"
+msgstr "Select Time"

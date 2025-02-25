@@ -2,9 +2,9 @@ import { isAndroid } from '../platform/detection';
 
 export const TRACKING = isAndroid ? 0.1 : 0;
 
-export const color = {
-  temp_purple: 'rgb(105 0 255)',
-  temp_purple_dark: 'rgb(83 0 202)',
+export const appColors = {
+  primary: '#007BFF',
+  secondary: '#0D0D0D',
 } as const;
 
 export const space = {
@@ -52,6 +52,7 @@ export const borderRadius = {
  */
 export const fontWeight = {
   normal: '400',
+  semiBold: '500',
   bold: '600',
   heavy: '800',
 } as const;

@@ -10,19 +10,21 @@ import { useLingui } from '@lingui/react/macro';
 import { H3, Text } from '@/src/components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FormProviders, Input } from '@/src/components/form';
-import { object, ObjectSchema, string } from 'yup';
+import { CheckboxInput, FormProviders, Input } from '@/src/components/form';
+import { boolean, object, ObjectSchema, string } from 'yup';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { DateTimeInput } from '@/src/components/form/DateTimeInput';
 
 export type TLoginForm = {
   email: string;
   date: string;
+  verified: boolean;
 };
 
 const schema: ObjectSchema<TLoginForm> = object({
   email: string().label('Email').required().email().trim(),
   date: string().required(),
+  verified: boolean().required(),
 }).defined();
 
 export default function HomeScreen() {
@@ -36,6 +38,7 @@ export default function HomeScreen() {
     defaultValues: {
       email: '',
       date: '',
+      verified: false,
     },
   });
 
@@ -63,13 +66,14 @@ export default function HomeScreen() {
       <FormProviders<TLoginForm> formMethods={formMethods}>
         <Input multiline name="email" label="Email or Phone" />
         <DateTimeInput
-          label="date"
-          iconRight={
+          label="Date"
+          iconLeft={
             <Ionicons name="checkmark-circle" size={32} color="green" />
           }
           mode="date"
           name="date"
         />
+        <CheckboxInput name="verified" label="is verfied" />
       </FormProviders>
     </View>
   );

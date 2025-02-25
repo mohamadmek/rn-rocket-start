@@ -1,10 +1,10 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import type { TextInputProps, TextStyle, ViewStyle } from 'react-native';
 import { TextInput, View } from 'react-native';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Text } from '../text/Text';
 import { FlexColumn, FlexStart } from '../layouts';
-import { atoms as a } from '@/src/theme';
+import { atoms as a, useTheme } from '@/src/theme';
 
 interface IErrorResponse {
   message: string;
@@ -45,28 +45,37 @@ export const Input = ({
   callBack,
   ...rest
 }: IInputProps) => {
+  const { atoms } = useTheme();
   const {
     control,
     formState: { errors },
   } = useFormContext();
 
-  const textInputStyle: TextStyle = {
-    textAlignVertical: multiline ? 'center' : 'top',
-    flex: 1,
-    ...textStyle,
-  };
+  // Memoized styles
+  const textInputStyle = useMemo<TextStyle>(
+    () => ({
+      textAlignVertical: multiline ? 'center' : 'top',
+      flex: 1,
+      color: atoms.text.color,
+      ...textStyle,
+    }),
+    [multiline, atoms.text.color, textStyle],
+  );
 
-  const inputBoxStyles: ViewStyle[] = [
-    {
-      borderWidth: 1,
-      borderColor: 'lightgrey',
-      minHeight: 45,
-      justifyContent: iconLeft ? 'flex-start' : 'space-between',
-      display: hidden ? 'none' : 'flex',
-    },
-    a.rounded_sm,
-    a.px_sm,
-  ];
+  const inputBoxStyles = useMemo<ViewStyle[]>(
+    () => [
+      {
+        borderWidth: 1,
+        borderColor: 'lightgrey',
+        minHeight: 45,
+        justifyContent: iconLeft ? 'flex-start' : 'space-between',
+        display: hidden ? 'none' : 'flex',
+      },
+      a.rounded_sm,
+      a.px_sm,
+    ],
+    [iconLeft, hidden],
+  );
 
   return (
     <Controller
