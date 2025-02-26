@@ -10,7 +10,12 @@ import { useLingui } from '@lingui/react/macro';
 import { H3, Text } from '@/src/components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CheckboxInput, FormProviders, Input } from '@/src/components/form';
+import {
+  CheckboxInput,
+  FormProviders,
+  Input,
+  SwitchInput,
+} from '@/src/components/form';
 import { boolean, object, ObjectSchema, string } from 'yup';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { DateTimeInput } from '@/src/components/form/DateTimeInput';
@@ -74,6 +79,7 @@ export default function HomeScreen() {
           name="date"
         />
         <CheckboxInput name="verified" label="is verfied" />
+        <SwitchInput name="hala" upperLabel="halal" />
       </FormProviders>
     </View>
   );

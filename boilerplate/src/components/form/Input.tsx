@@ -57,6 +57,7 @@ export const Input = ({
       textAlignVertical: multiline ? 'center' : 'top',
       flex: 1,
       color: atoms.text.color,
+      outline: 'none',
       ...textStyle,
     }),
     [multiline, atoms.text.color, textStyle],
@@ -67,7 +68,7 @@ export const Input = ({
       {
         borderWidth: 1,
         borderColor: 'lightgrey',
-        minHeight: 45,
+        height: 45,
         justifyContent: iconLeft ? 'flex-start' : 'space-between',
         display: hidden ? 'none' : 'flex',
       },
