@@ -58,7 +58,7 @@ type TSizes = keyof typeof sizes;
 
 type TTextType = 'error';
 
-interface ITextProps extends RNTextProps {
+export interface ITextProps extends RNTextProps {
   bold?: boolean;
   semiBold?: boolean;
   size?: TSizes;

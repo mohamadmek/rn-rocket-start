@@ -3,8 +3,8 @@ import { isAndroid } from '../platform/detection';
 export const TRACKING = isAndroid ? 0.1 : 0;
 
 export const appColors = {
-  primary: '#007BFF',
-  secondary: '#0D0D0D',
+  primary: '#FF3E00',
+  secondary: '#EAEAF0',
 } as const;
 
 export const space = {
