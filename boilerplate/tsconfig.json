@@ -5,6 +5,7 @@
     "module": "esnext",
     "types": ["node"],
     "strict": true,
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
       "lib/*": ["./src/lib/*"]

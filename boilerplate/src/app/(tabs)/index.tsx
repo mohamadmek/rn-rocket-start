@@ -1,4 +1,4 @@
-import { Button, View } from 'react-native';
+import { View } from 'react-native';
 import { useTheme } from '@/src/theme';
 import {
   useAppLanguageStore,
@@ -7,7 +7,7 @@ import {
 import { deviceStorage } from '@/src/lib/storage';
 import { AppLanguage } from '@/src/locale/languages';
 import { useLingui } from '@lingui/react/macro';
-import { H3, Text } from '@/src/components';
+import { Text } from '@/src/components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
@@ -19,6 +19,7 @@ import {
 import { boolean, object, ObjectSchema, string } from 'yup';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { DateTimeInput } from '@/src/components/form/DateTimeInput';
+import { Button } from '@/src/components/button/Button';
 
 export type TLoginForm = {
   email: string;
@@ -57,7 +58,7 @@ export default function HomeScreen() {
       }}
     >
       <Button
-        title="press me"
+        label="change lang"
         onPress={async () => {
           setAppLanguage(appLanguage === 'en' ? 'de' : 'en');
           deviceStorage.set(
@@ -65,9 +66,11 @@ export default function HomeScreen() {
             appLanguage === 'en' ? AppLanguage.de : AppLanguage.en,
           );
         }}
-      />
+      >
+        change lang
+      </Button>
+
       <Text>{t`HELLO EVERYONE`}</Text>
-      <H3>hello thessssre</H3>
       <FormProviders<TLoginForm> formMethods={formMethods}>
         <Input multiline name="email" label="Email or Phone" />
         <DateTimeInput
@@ -79,7 +82,8 @@ export default function HomeScreen() {
           name="date"
         />
         <CheckboxInput name="verified" label="is verfied" />
-        <SwitchInput name="hala" upperLabel="halal" />
+
+        <SwitchInput name="hala" upperLabel="Switch" />
       </FormProviders>
     </View>
   );

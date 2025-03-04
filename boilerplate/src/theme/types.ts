@@ -15,9 +15,32 @@ export type Palette = {
   like: string;
 
   primary: string;
+  primaryHover: string;
+  primaryDisabled: string;
+  primaryOutline: string;
+  primaryOutlineHover: string;
+  primaryOutlineDisabled: string;
+
   secondary: string;
+  secondaryHover: string;
+  secondaryDisabled: string;
+  secondaryOutline: string;
+  secondaryOutlineHover: string;
+  secondaryOutlineDisabled: string;
+
+  background: string;
+  surface: string;
+
+  textPrimary: string;
+  textSecondary: string;
+  textDisabled: string;
+
   error: string;
+  gray_100: string;
+  gray_200: string;
+  gray_300: string;
 };
+
 export type ThemedAtoms = {
   text: {
     color: string;
