@@ -1,5 +1,3 @@
-import { View } from 'react-native';
-import { useTheme } from '@/src/theme';
 import {
   useAppLanguageStore,
   useSetAppLanguageStore,
@@ -20,6 +18,17 @@ import { boolean, object, ObjectSchema, string } from 'yup';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { DateTimeInput } from '@/src/components/form/DateTimeInput';
 import { Button } from '@/src/components/button/Button';
+import {
+  HeaderContent,
+  HeaderOuter,
+  HeaderSlot,
+  HeaderTitleText,
+  KeyboardAwareContent,
+  Screen,
+} from '@/src/components/layouts';
+import { ButtonIcon } from '@/src/components/button/ButtonIcon';
+import { ButtonText } from '@/src/components/button/ButtonText';
+import { View } from 'react-native';
 
 export type TLoginForm = {
   email: string;
@@ -37,7 +46,6 @@ export default function HomeScreen() {
   const { t } = useLingui();
   const { setAppLanguage } = useSetAppLanguageStore();
   const { appLanguage } = useAppLanguageStore();
-  const theme = useTheme();
   const formMethods = useForm<TLoginForm>({
     resolver: yupResolver(schema),
     mode: 'onChange',
@@ -49,42 +57,61 @@ export default function HomeScreen() {
   });
 
   return (
-    <View
-      style={{
-        height: 300,
-        backgroundColor: theme.atoms.bg.backgroundColor,
-        marginTop: 50,
-        paddingHorizontal: 10,
-      }}
-    >
-      <Button
-        label="change lang"
-        onPress={async () => {
-          setAppLanguage(appLanguage === 'en' ? 'de' : 'en');
-          deviceStorage.set(
-            ['appLanguage'],
-            appLanguage === 'en' ? AppLanguage.de : AppLanguage.en,
-          );
-        }}
-      >
-        change lang
-      </Button>
+    <Screen>
+      <HeaderOuter>
+        <HeaderSlot />
+        <HeaderContent align="center">
+          <HeaderTitleText>hello</HeaderTitleText>
+        </HeaderContent>
+        <Button
+          label={'hello'}
+          size="small"
+          variant="ghost"
+          onPress={() => {}}
+          hitSlop={30}
+        >
+          <ButtonIcon size="large" name="menu" color="red" />
+        </Button>
+      </HeaderOuter>
+      <KeyboardAwareContent style={{ paddingTop: 20 }}>
+        <Button
+          label="change lang"
+          onPress={async () => {
+            setAppLanguage(appLanguage === 'en' ? 'de' : 'en');
+            deviceStorage.set(
+              ['appLanguage'],
+              appLanguage === 'en' ? AppLanguage.de : AppLanguage.en,
+            );
+          }}
+        >
+          change lang
+        </Button>
+        <View style={{ height: 20 }} />
+        <Button
+          label={'Feedback'}
+          variant="solid"
+          color="secondary"
+          onPress={() => {}}
+        >
+          <ButtonText>FeedBack</ButtonText>
+          <ButtonIcon name="air" position="right" />
+        </Button>
+        <Text>{t`HELLO EVERYONE`}</Text>
+        <FormProviders<TLoginForm> formMethods={formMethods}>
+          <Input multiline name="email" label="Email or Phone" />
+          <DateTimeInput
+            label="Date"
+            iconLeft={
+              <Ionicons name="checkmark-circle" size={32} color="green" />
+            }
+            mode="date"
+            name="date"
+          />
+          <CheckboxInput name="verified" label="is verfied" />
 
-      <Text>{t`HELLO EVERYONE`}</Text>
-      <FormProviders<TLoginForm> formMethods={formMethods}>
-        <Input multiline name="email" label="Email or Phone" />
-        <DateTimeInput
-          label="Date"
-          iconLeft={
-            <Ionicons name="checkmark-circle" size={32} color="green" />
-          }
-          mode="date"
-          name="date"
-        />
-        <CheckboxInput name="verified" label="is verfied" />
-
-        <SwitchInput name="hala" upperLabel="Switch" />
-      </FormProviders>
-    </View>
+          <SwitchInput name="hala" upperLabel="Switch" />
+        </FormProviders>
+      </KeyboardAwareContent>
+    </Screen>
   );
 }

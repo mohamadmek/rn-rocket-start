@@ -10,9 +10,10 @@ import {
 
 /**
  * Get base and hover styles for button based on variant, color, size, shape and state
+ * We use size when you want to have an icon button
  */
 export function getButtonStyles(
-  t: any, // Replace with your theme type
+  t: Theme,
   variant?: ButtonVariant,
   color?: ButtonColor,
   size?: ButtonSize,
@@ -159,6 +160,8 @@ function applyShapeAndSizeStyles(
         borderRadius: 4,
         gap: 4,
       });
+    } else {
+      baseStyles.push(a.rounded_sm, a.py_md);
     }
   } else if (shape === 'round' || shape === 'square') {
     if (size === 'large') {
@@ -179,17 +182,20 @@ function applyShapeAndSizeStyles(
       } else {
         baseStyles.push({ height: 21, width: 21 });
       }
+    } else {
+      baseStyles.push(a.py_md);
     }
 
     if (shape === 'round') {
       baseStyles.push(a.rounded_full);
-    } else if (shape === 'square') {
-      if (size === 'tiny') {
-        baseStyles.push(a.rounded_xs);
-      } else {
-        baseStyles.push(a.rounded_sm, a.py_sm);
-      }
     }
+    //  else if (shape === 'square') {
+    //   if (size === 'tiny') {
+    //     baseStyles.push(a.rounded_xs);
+    //   } else {
+    //     baseStyles.push(a.rounded_sm, a.py_sm);
+    //   }
+    // }
   }
 }
 

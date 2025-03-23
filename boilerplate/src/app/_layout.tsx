@@ -8,7 +8,7 @@ import { ThemeProvider as Alf } from '../theme';
 import { useColorModeTheme } from '../theme/utils/useColorModeTheme';
 import { AppLanguageProvider } from '../locale/state';
 import RootApp from './Root';
-import { AccessTokenProvider } from '../lib/api/AccessTokenContext';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -20,10 +20,10 @@ export default function RootLayout() {
     <AppLanguageProvider>
       <I18nProvider>
         <Alf theme={theme}>
-          <AccessTokenProvider>
+          <KeyboardProvider>
             <RootApp />
-            <StatusBar style="auto" />
-          </AccessTokenProvider>
+          </KeyboardProvider>
+          <StatusBar style="auto" />
         </Alf>
       </I18nProvider>
     </AppLanguageProvider>
