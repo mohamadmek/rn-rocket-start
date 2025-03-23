@@ -22,7 +22,7 @@ export const Button = React.forwardRef<View, ButtonProps>(
       variant = 'solid',
       color = 'primary',
       size,
-      shape = 'square',
+      shape = 'default',
       label,
       disabled = false,
       style,
@@ -89,6 +89,7 @@ export const Button = React.forwardRef<View, ButtonProps>(
           a.flex_row,
           a.align_center,
           a.justify_center,
+          a.gap_xs,
           flattenedBaseStyles,
           ...(state.hovered || state.pressed
             ? [hoverStyles, flatten(hoverStyleProp)]

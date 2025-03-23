@@ -1,5 +1,5 @@
 import { Platform, StyleSheet, ViewStyle } from 'react-native';
-import { ios, native, web } from './utils/platform';
+import { ios, native, platform, web } from './utils/platform';
 import * as tokens from './tokens';
 
 export const atoms = StyleSheet.create({
@@ -960,4 +960,25 @@ export const atoms = StyleSheet.create({
     transitionTimingFunction: 'cubic-bezier(0.17, 0.73, 0.14, 1)',
     transitionDuration: '100ms',
   }),
+
+  transition_delay_50ms: web({
+    transitionDelay: '50ms',
+  }),
+
+  /**
+   * {@link Layout.SCROLLBAR_OFFSET}
+   */
+  scrollbar_offset: platform({
+    web: {
+      transform: [
+        {
+          translateX:
+            'calc(-1 * var(--removed-body-scroll-bar-size, 0px) / 2)' as any,
+        },
+      ],
+    },
+    native: {
+      transform: [],
+    },
+  }) as { transform: Exclude<ViewStyle['transform'], string | undefined> },
 });
