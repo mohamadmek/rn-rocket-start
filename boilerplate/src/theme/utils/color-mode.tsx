@@ -1,5 +1,5 @@
 import React from 'react';
-import { deviceStorage } from '../../lib/storage';
+import { appStorage } from '../../lib/storage';
 import {
   localStorageDefaults,
   TLocalStorageSchema,
@@ -22,11 +22,9 @@ const setContext = React.createContext<SetContext>({} as SetContext);
 
 export function Provider({ children }: React.PropsWithChildren<object>) {
   const [colorMode, setColorMode] = React.useState<StateContext['colorMode']>(
-    deviceStorage.get(['colorMode']) || localStorageDefaults['colorMode'],
+    appStorage.getColorMode() || localStorageDefaults['colorMode'],
   );
-  const [darkTheme, setDarkTheme] = React.useState(
-    deviceStorage.get(['darkTheme']),
-  );
+  const [darkTheme, setDarkTheme] = React.useState(appStorage.getDarkTheme());
 
   const stateContextValue = React.useMemo(
     () => ({
@@ -40,11 +38,11 @@ export function Provider({ children }: React.PropsWithChildren<object>) {
     () => ({
       setColorMode: (_colorMode: TLocalStorageSchema['colorMode']) => {
         setColorMode(_colorMode);
-        deviceStorage.set(['colorMode'], _colorMode);
+        appStorage.setColorMode(_colorMode);
       },
       setDarkTheme: (_darkTheme: TLocalStorageSchema['darkTheme']) => {
         setDarkTheme(_darkTheme);
-        deviceStorage.set(['darkTheme'], _darkTheme);
+        appStorage.setDarkTheme(_darkTheme);
       },
     }),
     [],

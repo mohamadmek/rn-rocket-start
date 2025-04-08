@@ -1,4 +1,4 @@
-import { deviceStorage } from '@/src/lib/storage';
+import { appStorage } from '@/src/lib/storage';
 import { Platform } from 'react-native';
 import {
   localStorageDefaults,
@@ -31,8 +31,7 @@ export function AppLanguageProvider({
   const [language, setLanguage] = React.useState<TStateContext['appLanguage']>(
     Platform.OS === 'web'
       ? localStorageDefaults['appLanguage']
-      : deviceStorage.get(['appLanguage']) ||
-          localStorageDefaults['appLanguage'],
+      : appStorage.getAppLanguage() || localStorageDefaults['appLanguage'],
   );
 
   const stateContextValue: TStateContext = React.useMemo(
@@ -46,7 +45,7 @@ export function AppLanguageProvider({
     () => ({
       setAppLanguage: (appLanguage: TLocalStorageSchema['appLanguage']) => {
         setLanguage(appLanguage);
-        deviceStorage.set(['appLanguage'], appLanguage);
+        appStorage.setAppLanguage(appLanguage);
       },
     }),
     [],

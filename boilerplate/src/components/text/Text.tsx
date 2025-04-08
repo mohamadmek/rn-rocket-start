@@ -6,7 +6,6 @@ import {
   flatten,
   useAlf,
   useTheme,
-  web,
 } from '@/src/theme';
 import {
   StyleProp,
@@ -63,6 +62,7 @@ export interface ITextProps extends RNTextProps {
   semiBold?: boolean;
   size?: TSizes;
   type?: TTextType;
+  center?: boolean;
 }
 
 export const Text = ({
@@ -72,6 +72,7 @@ export const Text = ({
   semiBold,
   size = 'text_sm',
   type,
+  center,
   ...rest
 }: ITextProps) => {
   const { fonts, flags } = useAlf();
@@ -88,6 +89,10 @@ export const Text = ({
     textStyles.push({ color: t.palette.error });
   }
 
+  if (center) {
+    textStyles.push(a.text_center);
+  }
+
   const s = normalizeTextStyles(textStyles, {
     fontScale: fonts.scaleMultiplier,
     fontFamily: fonts.family,
@@ -102,43 +107,3 @@ export const Text = ({
 
   return <RNText {...shared}>{children}</RNText>;
 };
-
-/*
- * Not Tested!
- */
-function createHeadingElement({ level }: { level: number }) {
-  return function HeadingElement({ style, ...rest }: RNTextProps) {
-    const attr = web({
-      role: 'heading',
-      'aria-level': level,
-    }) || {
-      role: 'heading',
-      'aria-level': level,
-    };
-    return <Text {...attr} {...rest} style={style} />;
-  };
-}
-
-/*
- * Use semantic components when it's beneficial to the user or to a web scraper
- * Not Tested!
- */
-export const H1 = createHeadingElement({ level: 1 });
-export const H2 = createHeadingElement({ level: 2 });
-export const H3 = createHeadingElement({ level: 3 });
-export const H4 = createHeadingElement({ level: 4 });
-export const H5 = createHeadingElement({ level: 5 });
-export const H6 = createHeadingElement({ level: 6 });
-export function P({ style, ...rest }: RNTextProps) {
-  const attr =
-    web({
-      role: 'paragraph',
-    }) || {};
-  return (
-    <Text
-      {...attr}
-      {...rest}
-      style={[a.text_md, a.leading_normal, flatten(style)]}
-    />
-  );
-}

@@ -3,8 +3,8 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 
-import { deviceStorage } from '../lib/storage';
 import { useSetAppLanguageStore } from '../locale/state';
+import { appStorage } from '../lib/storage';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -18,7 +18,7 @@ export default function RootApp() {
 
   const initLocalLanguage = async () => {
     try {
-      const lang = await deviceStorage.get(['appLanguage']);
+      const lang = appStorage.getAppLanguage();
       if (lang) {
         setAppLanguage(lang);
       }
