@@ -3,7 +3,7 @@
   "bin": {
     "rn-rocket-start": "./dist/index.js"
   },
-  "version": "0.0.24",
+  "version": "0.0.25",
   "description": "",
   "main": "index.js",
   "scripts": {
