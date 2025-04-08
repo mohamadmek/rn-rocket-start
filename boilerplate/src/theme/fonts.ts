@@ -1,6 +1,6 @@
 import { TextStyle } from 'react-native';
 import { isAndroid, isWeb } from '../platform/detection';
-import { deviceStorage } from '../lib/storage';
+import { appStorage } from '../lib/storage';
 
 export type Device = {
   fontScale: '-2' | '-1' | '0' | '1' | '2';
@@ -28,19 +28,19 @@ export function computeFontScaleMultiplier(scale: Device['fontScale']) {
 }
 
 export function getFontScale() {
-  return deviceStorage.get(['fontScale']) ?? '0';
+  return appStorage.getFontScale() ?? '0';
 }
 
 export function setFontScale(fontScale: Device['fontScale']) {
-  deviceStorage.set(['fontScale'], fontScale);
+  appStorage.setFontScale(fontScale);
 }
 
 export function getFontFamily() {
-  return deviceStorage.get(['fontFamily']) || 'theme';
+  return appStorage.getFontFamily() || 'theme';
 }
 
 export function setFontFamily(fontFamily: Device['fontFamily']) {
-  deviceStorage.set(['fontFamily'], fontFamily);
+  appStorage.setFontFamily(fontFamily);
 }
 
 /*

@@ -1294,6 +1294,14 @@
     semver "^7.6.0"
     xml2js "0.6.0"
 
+"@expo/react-native-action-sheet@^4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@expo/react-native-action-sheet/-/react-native-action-sheet-4.1.1.tgz#a94a11088b8f146ac86b3ae710deef609a922d82"
+  integrity sha512-4KRaba2vhqDRR7ObBj6nrD5uJw8ePoNHdIOMETTpgGTX7StUbrF4j/sfrP1YUyaPEa1P8FXdwG6pB+2WtrJd1A==
+  dependencies:
+    "@types/hoist-non-react-statics" "^3.3.1"
+    hoist-non-react-statics "^3.3.0"
+
 "@expo/rudder-sdk-node@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@expo/rudder-sdk-node/-/rudder-sdk-node-1.1.1.tgz#6aa575f346833eb6290282118766d4919c808c6a"
@@ -2208,6 +2216,14 @@
   resolved "https://registry.yarnpkg.com/@types/hammerjs/-/hammerjs-2.0.46.tgz#381daaca1360ff8a7c8dff63f32e69745b9fb1e1"
   integrity sha512-ynRvcq6wvqexJ9brDMS4BnBLzmr0e14d6ZJTEShTBWKymQiHwlAyGu0ZPEFI2Fh1U53F7tN9ufClWM5KvqkKOw==
 
+"@types/hoist-non-react-statics@^3.3.1":
+  version "3.3.6"
+  resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.6.tgz#6bba74383cdab98e8db4e20ce5b4a6b98caed010"
+  integrity sha512-lPByRJUer/iN/xa4qpyL0qmL11DqNW81iU/IG1S3uvRUq4oKagz8VCxZjiWkumgt66YT3vOdDgZ0o32sGKtCEw==
+  dependencies:
+    "@types/react" "*"
+    hoist-non-react-statics "^3.3.0"
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.6.tgz#7739c232a1fee9b4d3ce8985f314c0c6d33549d7"
@@ -2301,6 +2317,13 @@
   integrity sha512-vAhnk0tG2eGa37lkU9+s5SoroCsRI08xnsWFiAXOuPH2jqzMbcXvKExXViPi1P5fIklDeCvXqyrdmipFaSkZrA==
   dependencies:
     "@types/react" "^18"
+
+"@types/react@*":
+  version "19.1.0"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.1.0.tgz#73c43ad9bc43496ca8184332b111e2aef63fc9da"
+  integrity sha512-UaicktuQI+9UKyA4njtDOGBD/67t8YEBt2xdfqu8+gP9hqPUPsiXlNPcpS2gVdjmis5GKPG3fCxbQLVgxsQZ8w==
+  dependencies:
+    csstype "^3.0.2"
 
 "@types/react@^18", "@types/react@~18.3.12":
   version "18.3.19"
@@ -4480,7 +4503,7 @@ expo-dev-menu@6.0.21:
   dependencies:
     expo-dev-menu-interface "1.9.3"
 
-expo-file-system@~18.0.12:
+expo-file-system@~18.0.11, expo-file-system@~18.0.12:
   version "18.0.12"
   resolved "https://registry.yarnpkg.com/expo-file-system/-/expo-file-system-18.0.12.tgz#6ceeeb0725f6c5faaf58112f18c073c2acfb3027"
   integrity sha512-HAkrd/mb8r+G3lJ9MzmGeuW2B+BxQR1joKfeCyY4deLl1zoZ48FrAWjgZjHK9aHUVhJ0ehzInu/NQtikKytaeg==
@@ -4498,6 +4521,30 @@ expo-haptics@~14.0.0:
   version "14.0.1"
   resolved "https://registry.yarnpkg.com/expo-haptics/-/expo-haptics-14.0.1.tgz#ff4ead605e33f1917e615c9328af7ac1c34892dc"
   integrity sha512-V81FZ7xRUfqM6uSI6FA1KnZ+QpEKnISqafob/xEfcx1ymwhm4V3snuLWWFjmAz+XaZQTqlYa8z3QbqEXz7G63w==
+
+expo-image-loader@~5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/expo-image-loader/-/expo-image-loader-5.0.0.tgz#4f58a21ab26e40d6fccc211b664fd9fe21a5dcb8"
+  integrity sha512-Eg+5FHtyzv3Jjw9dHwu2pWy4xjf8fu3V0Asyy42kO+t/FbvW/vjUixpTjPtgKQLQh+2/9Nk4JjFDV6FwCnF2ZA==
+
+expo-image-manipulator@~13.0.6:
+  version "13.0.6"
+  resolved "https://registry.yarnpkg.com/expo-image-manipulator/-/expo-image-manipulator-13.0.6.tgz#a6d5504ec0df34c8caa53a62eac7253b2267fab9"
+  integrity sha512-Rz8Kcfx1xYm0AsIDi6zfKYUDnwCP8edgYXWb00KAkzOF8bDxwzTrnvESWhCiveM4IB3fojjLpNeENME34p3bzA==
+  dependencies:
+    expo-image-loader "~5.0.0"
+
+expo-image-picker@~16.0.6:
+  version "16.0.6"
+  resolved "https://registry.yarnpkg.com/expo-image-picker/-/expo-image-picker-16.0.6.tgz#ab1378711813a8c857ee577a97ce43e31ea84ab5"
+  integrity sha512-HN4xZirFjsFDIsWFb12AZh19fRzuvZjj2ll17cGr19VNRP06S/VPQU3Tdccn5vwUzQhOBlLu704CnNm278boiQ==
+  dependencies:
+    expo-image-loader "~5.0.0"
+
+expo-image@~2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/expo-image/-/expo-image-2.0.7.tgz#087ca651e3dcd2e92efdda11a6c9e3ad6fddc127"
+  integrity sha512-kv40OIJOkItwznhdqFmKxTMC5O8GkpyTf8ng7Py4Hy6IBiH59dkeP6vUZQhzPhJOm5v1kZK4XldbskBosqzOug==
 
 expo-json-utils@~0.14.0:
   version "0.14.0"

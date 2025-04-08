@@ -17,11 +17,67 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ScrollbarOffsetContext } from './context';
 
-export type ScreenProps = React.ComponentProps<typeof View> & {
+// Constants
+const LAYOUT_CONSTANTS = {
+  MAX_CONTENT_WIDTH: 600,
+  CONTENT_BOTTOM_PADDING: 100,
+};
+
+// Shared Types
+export type BaseLayoutProps = {
   style?: StyleProp<ViewStyle>;
+  contentContainerStyle?: StyleProp<ViewStyle>;
+  children: React.ReactNode;
   noInsetTop?: boolean;
 };
 
+// Custom Hooks
+const useScrollbarOffset = () => {
+  const { isWithinOffsetView } = useContext(ScrollbarOffsetContext);
+  const ctx = useMemo(() => ({ isWithinOffsetView: true }), []);
+
+  return {
+    isWithinOffsetView,
+    offsetContext: ctx,
+  };
+};
+
+const useResponsiveStyles = () => {
+  const { gtMobile } = useBreakpoints();
+
+  return {
+    gtMobile,
+    responsiveMaxWidth: gtMobile
+      ? { maxWidth: LAYOUT_CONSTANTS.MAX_CONTENT_WIDTH }
+      : undefined,
+  };
+};
+
+// Component Types
+export type ScreenProps = React.ComponentProps<typeof View> &
+  Pick<BaseLayoutProps, 'style' | 'noInsetTop'>;
+
+export type ContentProps = ScrollViewProps &
+  Pick<BaseLayoutProps, 'style' | 'contentContainerStyle'>;
+
+export type KeyboardAwareContentProps = KeyboardAwareScrollViewProps &
+  Pick<BaseLayoutProps, 'children' | 'contentContainerStyle' | 'noInsetTop'>;
+
+// Styles
+const styles = StyleSheet.create({
+  contentContainer: {
+    paddingBottom: LAYOUT_CONSTANTS.CONTENT_BOTTOM_PADDING,
+  },
+  fullWidth: {
+    width: '100%',
+  },
+  baseScrollView: {
+    width: '100%',
+    paddingHorizontal: 16, // Assuming a.px_md is equivalent to 16
+  },
+});
+
+// Components
 export const Screen = React.memo(function Screen({
   style,
   noInsetTop,
@@ -30,6 +86,7 @@ export const Screen = React.memo(function Screen({
 }: ScreenProps) {
   const { top } = useSafeAreaInsets();
   const { palette } = useTheme();
+
   return (
     <View
       style={[
@@ -46,11 +103,6 @@ export const Screen = React.memo(function Screen({
     </View>
   );
 });
-
-export type ContentProps = ScrollViewProps & {
-  style?: StyleProp<ViewStyle>;
-  contentContainerStyle?: StyleProp<ViewStyle>;
-};
 
 /**
  * Default scroll view for simple pages
@@ -69,10 +121,7 @@ export const Content = React.memo(function Content({
       automaticallyAdjustsScrollIndicatorInsets={false}
       indicatorStyle={t.scheme === 'dark' ? 'white' : 'black'}
       style={[a.w_full, a.px_md, style]}
-      contentContainerStyle={[
-        scrollViewStyles.contentContainer,
-        contentContainerStyle,
-      ]}
+      contentContainerStyle={[styles.contentContainer, contentContainerStyle]}
       {...props}
     >
       {isWeb ? (
@@ -85,26 +134,16 @@ export const Content = React.memo(function Content({
   );
 });
 
-export type KeyboardAwareContentProps = KeyboardAwareScrollViewProps & {
-  children: React.ReactNode;
-  contentContainerStyle?: StyleProp<ViewStyle>;
-  noInsetTop?: boolean;
-};
-
-export const KeyboardAwareContent = React.memo(function LayoutScrollView({
+export const KeyboardAwareContent = React.memo(function KeyboardAwareContent({
   children,
   style,
   contentContainerStyle,
-  noInsetTop,
   ...props
 }: KeyboardAwareContentProps) {
   return (
     <KeyboardAwareScrollView
       style={[a.w_full, a.px_md, style]}
-      contentContainerStyle={[
-        scrollViewStyles.contentContainer,
-        contentContainerStyle,
-      ]}
+      contentContainerStyle={[styles.contentContainer, contentContainerStyle]}
       keyboardShouldPersistTaps="handled"
       {...props}
     >
@@ -113,34 +152,26 @@ export const KeyboardAwareContent = React.memo(function LayoutScrollView({
   );
 });
 
-const scrollViewStyles = StyleSheet.create({
-  contentContainer: {
-    paddingBottom: 100,
-  },
-});
-
-export const Center = React.memo(function LayoutContent({
+export const Center = React.memo(function Center({
   children,
   style,
   ...props
 }: ViewProps) {
-  const { isWithinOffsetView } = useContext(ScrollbarOffsetContext);
-  const { gtMobile } = useBreakpoints();
-  const ctx = useMemo(() => ({ isWithinOffsetView: true }), []);
+  const { isWithinOffsetView, offsetContext } = useScrollbarOffset();
+  const { responsiveMaxWidth } = useResponsiveStyles();
+
   return (
     <View
       style={[
         a.w_full,
         a.mx_auto,
-        gtMobile && {
-          maxWidth: 600,
-        },
+        responsiveMaxWidth,
         style,
         !isWithinOffsetView && a.scrollbar_offset,
       ]}
       {...props}
     >
-      <ScrollbarOffsetContext.Provider value={ctx}>
+      <ScrollbarOffsetContext.Provider value={offsetContext}>
         {children}
       </ScrollbarOffsetContext.Provider>
     </View>

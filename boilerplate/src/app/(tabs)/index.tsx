@@ -2,7 +2,6 @@ import {
   useAppLanguageStore,
   useSetAppLanguageStore,
 } from '@/src/locale/state';
-import { deviceStorage } from '@/src/lib/storage';
 import { AppLanguage } from '@/src/locale/languages';
 import { useLingui } from '@lingui/react/macro';
 import { Text } from '@/src/components';
@@ -29,6 +28,7 @@ import {
 import { ButtonIcon } from '@/src/components/button/ButtonIcon';
 import { ButtonText } from '@/src/components/button/ButtonText';
 import { View } from 'react-native';
+import { appStorage } from '@/src/lib/storage';
 
 export type TLoginForm = {
   email: string;
@@ -78,8 +78,7 @@ export default function HomeScreen() {
           label="change lang"
           onPress={async () => {
             setAppLanguage(appLanguage === 'en' ? 'de' : 'en');
-            deviceStorage.set(
-              ['appLanguage'],
+            appStorage.setAppLanguage(
               appLanguage === 'en' ? AppLanguage.de : AppLanguage.en,
             );
           }}
@@ -91,7 +90,10 @@ export default function HomeScreen() {
           label={'Feedback'}
           variant="solid"
           color="secondary"
-          onPress={() => {}}
+          onPress={async () => {
+            // const habibi = await openPicker({});
+            // console.log(habibi);
+          }}
         >
           <ButtonText>FeedBack</ButtonText>
           <ButtonIcon name="air" position="right" />
